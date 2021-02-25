@@ -1,8 +1,8 @@
-#Audio-Player Backend
+# Audio-Player Backend
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Backend for Audio-Player
 
 ## Installation
 
