@@ -1,18 +1,12 @@
-FROM node:latest AS builder
+FROM node:12
 
 WORKDIR /backend
-COPY ./package.json ./
 
+COPY ./package* ./
 RUN npm install
-COPY . .
 
+COPY . .
 RUN npm run build
 
-# Second Stage
-FROM node:14.2.0-alpine
-WORKDIR /backend
-
-COPY --from=builder /backend ./
 EXPOSE 3000
-
 CMD ["npm", "run", "start:prod"]
