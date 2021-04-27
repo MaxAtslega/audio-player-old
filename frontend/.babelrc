@@ -1,0 +1,33 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "@actions": ["src/actions/*"],
+          "@pages": ["pages/*"],
+          "@reducers": ["src/reducers/*"],
+          "@providers": ["src/providers/*"],
+          "@components/*": ["src/components/*"],
+          "@pages/*": ["src/pages/*"],
+          "@styles/*": ["src/styles/*"],
+          "@layouts/*": ["src/layouts/*"],
+          "@lib/*": ["src/lib/*"],
+          "@store": ["src/store/*"],
+          "@static": ["public/static/*"],
+          "@models/*": ["src/models/*"],
+          "@sagas/*": ["src/sagas/*"],
+          "@epics/*": ["src/epics/*"]
+        }
+      }
+    ],
+    [
+      "babel-plugin-styled-components",
+      {
+        "ssr": true
+      }
+    ]
+  ]
+}
