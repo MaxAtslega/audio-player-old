@@ -34,13 +34,13 @@ export class AudioController {
     @UseGuards(JwtAuthGuard, RoleGuard)
     @Roles(RolesEnum.ADMIN)
     @UseInterceptors(
-        FileInterceptor('audio', {
-            storage: diskStorage({
-                destination: './audios',
-                filename: editFileName,
-            }),
-            fileFilter: audioFileFilter,
-        }),
+      FileInterceptor('audio', {
+          storage: diskStorage({
+              destination: './audios',
+              filename: editFileName,
+          }),
+          fileFilter: audioFileFilter,
+      }),
     )
     async addAudio(@Req() req, @UploadedFile() file, @Body() audio: AudioCreateDto): Promise<StatusDto> {
         if (req.fileValidationError) {

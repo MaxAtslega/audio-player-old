@@ -1,4 +1,4 @@
-import {IsInt, IsOptional} from 'class-validator';
+import { IsInt, IsOptional, IsString } from "class-validator";
 import {Transform} from "class-transformer";
 
 
@@ -7,7 +7,6 @@ export class AudioCreateDto {
     name: string;
 
     @IsOptional()
-    @IsInt()
-    @Transform(value => Number(value))
-    category: number;
+    @IsString()
+    category: string;
 }

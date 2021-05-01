@@ -16,12 +16,11 @@ import {
 
 export interface State {
   audios: Audio[];
-  onlyFavourites: boolean;
   error: string;
 }
 
 export default function userReducer(
-  state: State = { audios: [], onlyFavourites: false, error: "" },
+  state: State = { audios: [], error: "" },
   action: ActionType<
     | typeof deleteAudioSuccessAction
     | typeof createAudioSuccessAction
@@ -33,18 +32,18 @@ export default function userReducer(
   switch (action.type) {
     case DELETE_AUDIO_SUCCESS:
       const filteredAudios = state.audios.filter(
-        audio => audio.id !== action.payload.toString()
+        audio => audio.uuid !== action.payload.toString()
       );
 
       return update(state, { audios: { $set: filteredAudios } });
     case CREATE_AUDIO_SUCCESS:
       const newAudio = update(action.payload, {
-        id: { $set: action.payload.id },
+        uuid: { $set: action.payload.uuid },
       });
       return update(state, { audios: { $push: [newAudio] } });
     case UPDATE_AUDIO_SUCCESS:
       const AudioIndex = state.audios.findIndex(
-        Audio => Audio.id === action.payload.id
+        Audio => Audio.uuid === action.payload.uuid
       );
       return update(state, {
         audios: { [AudioIndex]: { $set: action.payload } },

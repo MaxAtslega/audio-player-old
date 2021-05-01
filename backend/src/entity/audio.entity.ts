@@ -20,7 +20,7 @@ export class Audio {
     file: string;
 
     @Column({ default: 0 })
-    category: number;
+    category: string;
 
     @CreateDateColumn()
     createdAt: Date;
@@ -28,7 +28,7 @@ export class Audio {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    constructor(name: string, file: string, category: number) {
+    constructor(name: string, file: string, category: string) {
         this.name = name;
         this.file = file;
         this.category = category;

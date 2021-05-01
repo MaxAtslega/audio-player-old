@@ -1,13 +1,18 @@
 export default class Audio {
-  public id?: string;
 
+  uuid: string;
   name: string;
-  url: string;
   category: number | string;
 
-  constructor(name: string, url: string, category: number | string) {
+  createdAt: string;
+  updatedAt: string;
+
+  constructor(uuid: string, name: string, category: number | string, createdAt: string, updatedAt: string) {
+    this.uuid = uuid;
     this.name = name;
-    this.url = url;
     this.category = category;
+
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 }

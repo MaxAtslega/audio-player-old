@@ -9,7 +9,7 @@ export const Container = styled.div`
 export const Form = styled.div`
   position: relative;
   z-index: 1;
-  background: var(--background-primary);
+  background: var(--background-secondary);
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
@@ -24,7 +24,7 @@ export const Title = styled.h1`
 export const Button = styled.input`
   text-transform: uppercase;
   outline: 0;
-  background: #f08400;
+  background: #d77600;
   width: 100%;
   border: 0;
   padding: 15px;

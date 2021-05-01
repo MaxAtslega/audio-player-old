@@ -1,8 +1,14 @@
-import {BadRequestException, Inject, Injectable, InternalServerErrorException, NotFoundException} from "@nestjs/common";
+import {
+    BadRequestException,
+    Inject,
+    Injectable,
+    InternalServerErrorException,
+    NotFoundException,
+} from "@nestjs/common";
 import { Repository } from "typeorm";
-import {Audio} from "../entity/audio.entity";
-import {AudioCreateDto} from "../model/audio-create.dto";
-import {AudioUpdateDto} from "../model/audio-update.dto";
+import { Audio } from "../entity/audio.entity";
+import { AudioCreateDto } from "../model/audio-create.dto";
+import { AudioUpdateDto } from "../model/audio-update.dto";
 
 @Injectable()
 export class AudioService {
@@ -17,16 +23,14 @@ export class AudioService {
             audio.name, file.filename, audio.category
         );
 
-        const data = await this.audioRepository
-            .save(audioObject)
-            .then((value): any => {
-                return value;
-            })
-            .catch(() => {
-                throw new InternalServerErrorException();
-            });
-
-        return data;
+        return await this.audioRepository
+          .save(audioObject)
+          .then((value): any => {
+              return value;
+          })
+          .catch(() => {
+              throw new InternalServerErrorException();
+          });
 
 
     }

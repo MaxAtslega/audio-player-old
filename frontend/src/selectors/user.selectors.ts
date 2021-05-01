@@ -11,9 +11,9 @@ export function getError(state: AppState): string {
 
 export function getAudio(state: AppState): (id?: string) => Audio {
   return (id?: string): Audio => {
-    const audio = getAudios(state).find(audio => audio.id === id);
+    const audio = getAudios(state).find(audio => audio.uuid === id);
     if (!audio) {
-      return new Audio("", "", 0);
+      return new Audio("", "","0","","");
     }
     return audio;
   };

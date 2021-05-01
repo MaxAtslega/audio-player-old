@@ -8,5 +8,5 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-EXPOSE 3000
+EXPOSE 3005
 CMD ["npm", "run", "start:prod"]

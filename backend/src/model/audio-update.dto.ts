@@ -1,4 +1,4 @@
-import {IsInt, IsNotEmpty} from 'class-validator';
+import { IsInt, IsNotEmpty, IsString } from "class-validator";
 import {Transform} from "class-transformer";
 
 export class AudioUpdateDto {
@@ -6,7 +6,6 @@ export class AudioUpdateDto {
     name: string;
 
     @IsNotEmpty()
-    @Transform(value => Number(value))
-    @IsInt()
-    category: number;
+    @IsString()
+    category: string;
 }

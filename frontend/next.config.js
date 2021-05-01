@@ -10,7 +10,7 @@ module.exports = {
     },
     env: {
       API_URL: process.env.API_URL || "http://localhost:3005/api",
-      TITLE: process.env.TITLE || "Audio-Player",
+      TITLE: process.env.TITLE || "AudioPlayer-Player",
     }
 }
 

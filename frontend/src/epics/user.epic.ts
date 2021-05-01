@@ -73,7 +73,6 @@ function prepareForRequest(
 ): [FormData, AxiosRequestConfig] {
   const data = new FormData();
   data.append("name", Audio.name);
-  data.append("url", Audio.url);
   data.append("category", Audio.category.toString());
 
   const config = getConfig(token);
