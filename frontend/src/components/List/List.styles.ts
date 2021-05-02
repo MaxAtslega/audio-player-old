@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {GiSoundWaves} from "react-icons/gi";
 
 export const Category = styled.ul`
   list-style: none;
@@ -6,34 +7,61 @@ export const Category = styled.ul`
   padding: 0;
 `;
 
-export const CategoryItem = styled.li`
+export const Controllers = styled.div`
+  display: flex;
+  justify-content: left;
+`;
+
+export const Item = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 35px;
+  width: 35px;
+  border-radius: 10px;
+  margin-left: 10px;
+  background: var(--background-primary);
+
+  &:hover {
+    background: var(--interactive-hover);
+  }
+
+  @media only screen and (max-width: 730px) {
+    display: none;
+  }
+
+`
+
+export const CategoryItem = styled.li`
   padding: 10px;
   margin-top: 10px;
   border-radius: 10px;
   background: var(--background-secondary);
   font-size: 16px;
-  cursor: pointer;
-
-  &:hover {
-    opacity: .9;
-  }
-
-  p{
-    margin: 0;
-    padding-right: 10px;
-  }
+  text-align: center;
+  text-decoration: underline;
 `
 export const AudioItem = styled.li`
-  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
   margin-top: 10px;
   border-radius: 10px;
   background: var(--background-secondary);
   cursor: pointer;
+  min-height: 55px;
+
+  &.play {
+    border-bottom: #4CD137 solid 3px;
+  }
+
+  @media only screen and (max-width: 730px) {
+    justify-content: center;
+  }
+
 
   &:hover {
-    opacity: .9;
+    opacity: .8 !important;
   }
 `;

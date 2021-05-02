@@ -7,7 +7,7 @@ import List from "@components/List";
 import Main from "@components/Main";
 import Header from "@components/Header";
 import AudioPlayer from "@components/AudioPlayer";
-
+import { Container } from "@components/Main/Main.styles"
 function Index() {
   const router = useRouter();
   const loggedin = useSelector(isLoggedIn);
@@ -16,8 +16,10 @@ function Index() {
     return(
     <Main>
       <Header/>
-      <AudioPlayer/>
-      <List/>
+      <Container>
+        <AudioPlayer/>
+        <List/>
+      </Container>
     </Main>);
   } else {
     if (typeof window !== "undefined") {
