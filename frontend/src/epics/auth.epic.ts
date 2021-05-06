@@ -10,10 +10,11 @@ import {
   LOGOUT,
   REAUTHENTICATE,
   reauthenticateAction,
-} from "../actions/auth.actions";
+} from "@actions/auth.actions";
 import { switchMap, catchError, map, mapTo } from "rxjs/operators";
 import { from, of } from "rxjs";
 import { push } from "connected-next-router";
+import { loadAudiosAction } from "@actions/user.actions";
 
 const login: Epic = action$ =>
   action$.pipe(
@@ -39,7 +40,7 @@ const redirectToStart: Epic = action$ => {
 
 const redirectToLogin: Epic = action$ => {
   return action$.pipe(
-    ofType(LOGOUT, UNAUTHORIZED_ERROR),
+    ofType(LOGOUT),
     mapTo(push("/login"))
   );
 };

@@ -1,6 +1,6 @@
 import { combineEpics, ofType, Epic } from "redux-observable";
-import { from, of, Observable } from "rxjs";
-import { map, catchError, switchMap } from "rxjs/operators";
+import { from, of, Observable, EMPTY } from "rxjs";
+import { map, catchError, switchMap, mapTo } from "rxjs/operators";
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import {
   LOAD_AUDIOS,
@@ -11,12 +11,12 @@ import {
   CREATE_AUDIO,
   UPDATE_AUDIO,
   updateAudioSuccessAction,
-  createAudioSuccessAction,
-} from "../actions/user.actions";
+  createAudioSuccessAction, AUDIO_URL, SELECT_AUDIO, audioUrlAction,
+} from "@actions/user.actions";
 import Audio from "../models/Audio";
-import { unauthorizedErrorAction } from "../actions/auth.actions";
+import { unauthorizedErrorAction } from "@actions/auth.actions";
 import { ActionType } from "typesafe-actions";
-import { getToken } from "../selectors/login.selectors";
+import { getToken } from "@selectors/login.selectors";
 
 function handleError(
   err: AxiosError
@@ -26,6 +26,7 @@ function handleError(
   }
   return of(errorAction(err.toString()));
 }
+
 
 const loadAudios: Epic = (action$, state$) =>
   action$.pipe(
@@ -46,14 +47,14 @@ const loadAudios: Epic = (action$, state$) =>
 const deleteAudio: Epic = (action$, state$) =>
   action$.pipe(
     ofType(DELETE_AUDIO),
-    switchMap(({ payload: id }) =>
+    switchMap(({ payload: uuid }) =>
       from(
         axios.delete(
-          process.env.API_URL + `/audio/${id}`,
+          process.env.API_URL + `/audio/${uuid}`,
           getConfig(getToken(state$.value))
         )
       ).pipe(
-        map(() => deleteAudioSuccessAction(id)),
+        map(() => deleteAudioSuccessAction(uuid)),
         catchError(handleError)
       )
     )
@@ -64,6 +65,15 @@ function getConfig(token: string): AxiosRequestConfig {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+  };
+}
+
+function getConfigWithBlob(token: string): AxiosRequestConfig {
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    responseType: 'blob',
   };
 }
 
@@ -108,4 +118,28 @@ const updateAudio: Epic = (action$, state$) =>
     })
   );
 
-export default combineEpics(loadAudios, deleteAudio, createAudio, updateAudio);
+
+const getAudioUrl: Epic = (action$, state$) =>
+  action$.pipe(
+    ofType(SELECT_AUDIO),
+    switchMap(({payload: Audio}) => {
+      if(Audio.name){
+        return from(
+          axios.get(
+            process.env.API_URL+"/audio/"+Audio.uuid+"/download",
+            getConfigWithBlob(getToken(state$.value))
+          )
+        ).pipe(
+          map(({ data }) => {
+            return audioUrlAction(window.URL.createObjectURL(data));
+          }),
+          catchError(handleError)
+        )
+      }else{
+        return of(audioUrlAction(""));
+      }
+    }
+
+    )
+  );
+export default combineEpics(loadAudios, deleteAudio, createAudio, updateAudio, getAudioUrl);

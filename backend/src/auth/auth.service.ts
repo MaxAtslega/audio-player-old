@@ -11,8 +11,6 @@ export class AuthService {
     ) {}
 
     async login(userDto: KeyDto): Promise<BearerTokenDto> {
-
-        console.log(await hash("123456789", 10))
         if (compareSync(userDto.key, process.env.USER_KEY)) {
             return {
                 access_token: this.jwtService.sign({

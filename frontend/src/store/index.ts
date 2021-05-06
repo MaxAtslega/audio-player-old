@@ -8,7 +8,7 @@ import {
 import { createLogger } from "redux-logger";
 import rootReducer, { AppState } from "../reducers/rootReducer";
 import { createEpicMiddleware } from "redux-observable";
-import { AllActions } from "../actions/actions";
+import { AllActions } from "@actions/actions";
 import rootEpic from "../epics/rootEpic";
 import {
   createRouterMiddleware,

@@ -65,4 +65,4 @@ backend.env
 # next.js build output
 .next
 
-audio
+frontend/pages/api

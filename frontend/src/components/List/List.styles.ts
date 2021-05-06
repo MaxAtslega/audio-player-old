@@ -29,6 +29,10 @@ export const Item = styled.div`
   @media only screen and (max-width: 730px) {
     display: none;
   }
+  svg {
+    pointer-events: none;
+  }
+
 
 `
 

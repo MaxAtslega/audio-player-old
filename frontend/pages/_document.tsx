@@ -1,17 +1,16 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
+import * as cookie from "@utils/cookie";
 
-export default class MyDocument extends Document {
-  blockingSetInitialColorMode = `
-  (function(){
-    ${"function " + this.setInitialColorMode.toString()}
-    setInitialColorMode();
-  })()
-  `;
+interface Props {
+  theme: string | undefined;
+}
 
+export default class MyDocument extends Document<Props>{
   static async getInitialProps(ctx: any) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
+    let theme = cookie.getCookie("theme", ctx.req);
 
     try {
       ctx.renderPage = () =>
@@ -22,7 +21,9 @@ export default class MyDocument extends Document {
 
       const initialProps = await Document.getInitialProps(ctx);
       return {
+        theme,
         ...initialProps,
+
         styles: (
           <>
             {initialProps.styles}
@@ -36,31 +37,15 @@ export default class MyDocument extends Document {
   }
 
   setInitialColorMode() {
-    function getInitialColorMode() {
-      const persistedColorPreference = window.localStorage.getItem("theme");
-      const hasPersistedPreference =
-        typeof persistedColorPreference === "string";
-
-      if (hasPersistedPreference) {
-        return persistedColorPreference;
+    const code = `function setTheme(){
+      const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+      if (darkThemeMq.matches && !${this.props.theme ? `"${this.props.theme}"` : undefined}) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }else{
+        document.documentElement.setAttribute("data-theme", "${this.props.theme ? this.props.theme : "light"}");
       }
-
-      const mql = window.matchMedia("(prefers-color-scheme: dark)");
-      const hasMediaQueryPreference = typeof mql.matches === "boolean";
-
-      if (hasMediaQueryPreference) {
-        return mql.matches ? "dark" : "light";
-      }
-
-      return "light";
-    }
-
-    const colorMode = getInitialColorMode();
-    const root = document.documentElement;
-    root.style.setProperty("--initial-color-mode", colorMode);
-
-    if (colorMode === "dark")
-      document.documentElement.setAttribute("data-theme", "dark");
+    }`;
+    return "(function(){"+code+"setTheme()})()"
   }
 
   render() {
@@ -69,7 +54,7 @@ export default class MyDocument extends Document {
         <Head>
           <script
             dangerouslySetInnerHTML={{
-              __html: this.blockingSetInitialColorMode,
+              __html: this.setInitialColorMode(),
             }}
           />
         </Head>

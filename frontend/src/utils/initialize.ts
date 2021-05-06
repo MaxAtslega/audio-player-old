@@ -1,13 +1,15 @@
 import { getCookie } from "./cookie";
-import { reauthenticateAction } from "../actions/auth.actions";
+import { reauthenticateAction } from "@actions/auth.actions";
 import Router from "next/router";
 
-export default function initialize(ctx: any) {
+export default async function initialize(ctx: any) {
   if (typeof window === "undefined") {
     if (ctx.req.headers.cookie) {
-      ctx.store.dispatch(
-        reauthenticateAction(getCookie("token", ctx.req) || "")
-      );
+      let token = getCookie("token", ctx.req);
+      if(token){
+        await ctx.store.dispatch(reauthenticateAction(token));
+      }
+
     }
   }else{
     const token = ctx.store.getState().auth.token;

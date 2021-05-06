@@ -4,8 +4,7 @@ import { NextApiRequest } from "next";
 export const setCookie = (key: string, value: string) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
-      expires: 1,
-      path: "/",
+      expires: 365,
     });
   }
 };
@@ -13,7 +12,7 @@ export const setCookie = (key: string, value: string) => {
 export const removeCookie = (key: string) => {
   if (typeof window !== "undefined") {
     cookie.remove(key, {
-      expires: 1,
+      expires: 365,
     });
   }
 };

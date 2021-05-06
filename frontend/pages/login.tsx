@@ -1,6 +1,6 @@
 import React from "react";
 import LoginForm from "@components/LoginForm/LoginForm";
-import initialize from "@lib/initialize";
+import initialize from "../src/utils/initialize";
 
 class Login extends React.Component {
   static async getInitialProps(ctx: any) {

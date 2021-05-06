@@ -1,24 +1,17 @@
 import React, { useEffect, useState, useMemo, createContext } from "react";
-
+import * as cookie from "@utils/cookie";
 
 // @ts-ignore
 export const ThemeContext = createContext<any>();
 
-export const ThemeProvider = ({ children }: { children: JSX.Element }) => {
-  const [theme, setTheme] = useState("light");
+export const ThemeProvider = ({ children, themeCookie }: { children: JSX.Element, themeCookie: any }) => {
+  const [theme, setTheme] = useState(themeCookie || undefined);
 
-  useEffect(() => {
-    const root = window.document.documentElement;
-    const initialColorValue = root.style.getPropertyValue(
-      "--initial-color-mode"
-    );
-    setTheme(initialColorValue);
-  }, []);
 
   useEffect(() => {
     if (theme !== undefined) {
       document.documentElement.setAttribute("data-theme", theme);
-      window.localStorage.setItem("theme", theme);
+      cookie.setCookie("theme", theme);
     }
   }, [theme]);
 
@@ -35,3 +28,4 @@ export const ThemeProvider = ({ children }: { children: JSX.Element }) => {
     </ThemeContext.Provider>
   );
 };
+

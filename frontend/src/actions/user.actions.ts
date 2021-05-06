@@ -10,6 +10,9 @@ export type LOAD_AUDIOS_SUCCESS = typeof LOAD_AUDIOS_SUCCESS;
 export const ERROR = "ERROR";
 export type ERROR = typeof ERROR;
 
+export const AUDIO_URL = "AUDIO_URL";
+export type AUDIO_URL = typeof AUDIO_URL;
+
 export const DELETE_AUDIO = "DELETE_AUDIO";
 export type DELETE_AUDIO = typeof DELETE_AUDIO;
 
@@ -28,12 +31,20 @@ export type UPDATE_AUDIO = typeof UPDATE_AUDIO;
 export const UPDATE_AUDIO_SUCCESS = "UPDATE_AUDIO_SUCCESS";
 export type UPDATE_AUDIO_SUCCESS = typeof UPDATE_AUDIO_SUCCESS;
 
+export const SELECT_AUDIO = "SELECT_AUDIO";
+export type SELECT_AUDIO = typeof SELECT_AUDIO;
+
 export const loadAudiosAction = createStandardAction(LOAD_AUDIOS)<void>();
 export const loadAudiosSuccessAction = createStandardAction(
   LOAD_AUDIOS_SUCCESS
 )<Audio[]>();
 
+
 export const errorAction = createStandardAction(ERROR)<string>();
+
+export const audioUrlAction = createStandardAction(AUDIO_URL)<string>();
+
+export const selectAudioAction = createStandardAction(SELECT_AUDIO)<Audio>();
 
 export const deleteAudioAction = createStandardAction(DELETE_AUDIO)<number>();
 export const deleteAudioSuccessAction = createStandardAction(
@@ -59,5 +70,6 @@ export type UserActions = ActionType<
   | typeof createAudioSuccessAction
   | typeof updateAudioAction
   | typeof updateAudioSuccessAction
+  | typeof audioUrlAction
   | typeof errorAction
 >;

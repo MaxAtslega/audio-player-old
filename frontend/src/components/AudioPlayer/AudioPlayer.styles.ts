@@ -103,6 +103,7 @@ export const AudioPlayerStyle = styled(AudioPlayer)`
     position: absolute;
     z-index: 2;
     border-radius: 2px;
+    background-color: #868686;
   }
 
 
@@ -178,6 +179,10 @@ export const AudioPlayerStyle = styled(AudioPlayer)`
     flex: 1 0 auto;
     justify-content: flex-end;
     align-items: center;
+
+    svg {
+      cursor: pointer;
+    }
   }
 
   & .rhap_volume-button {

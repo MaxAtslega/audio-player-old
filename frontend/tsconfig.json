@@ -19,20 +19,20 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@actions": ["src/actions/*"],
-      "@pages": ["pages/*"],
-      "@reducers": ["src/reducers/*"],
+      "@actions/*": ["src/actions/*"],
+      "@reducers/*": ["src/reducers/*"],
       "@components/*": ["src/components/*"],
       "@providers/*": ["src/providers/*"],
       "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@lib/*": ["src/lib/*"],
-      "@store": ["src/store/*"],
-      "@static": ["public/static/*"],
+      "@utils/*": ["src/utils/*"],
+      "@store/*": ["src/store/*"],
+      "@static/*": ["public/static/*"],
       "@models/*": ["src/models/*"],
       "@sagas/*": ["src/sagas/*"],
-      "@epics/*": ["src/epics/*"]
+      "@epics/*": ["src/epics/*"],
+      "@selectors/*": ["src/selectors/*"]
     }
   },
   "exclude": [
@@ -45,5 +45,5 @@
     "bundles",
     "coverage",
   ],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

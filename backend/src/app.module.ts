@@ -21,7 +21,7 @@ import {APP_INTERCEPTOR} from "@nestjs/core";
       isGlobal: true,
     }),
     MulterModule.register({
-      dest: './audio',
+      dest: './api',
     }),
     JwtModule.registerAsync({ useClass: JwtConfigService }),
     PassportModule,

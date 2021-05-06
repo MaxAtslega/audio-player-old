@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Head from "next/head";
 import "@styles/globals.scss";
 import { ThemeProvider } from "@providers/ThemeProvider";
 import { wrapper } from "../src/store";
 import App, { AppProps } from "next/app";
 import { ConnectedRouter } from "connected-next-router";
+import * as cookie from "@utils/cookie";
+
 
 interface Props {
   pageProps: AppProps;
   Component: any;
+  theme: string | undefined;
 }
 
 export default wrapper.withRedux(
@@ -19,14 +22,12 @@ export default wrapper.withRedux(
       if (Component.getInitialProps) {
         pageProps = await Component.getInitialProps(ctx)
       }
-
       return { pageProps }
     }
 
 
-
     render() {
-      const { Component, pageProps } = this.props;
+      const { Component, pageProps, theme } = this.props;
 
       return (
         <React.Fragment>
@@ -57,7 +58,7 @@ export default wrapper.withRedux(
             <title>{process.env.TITLE}</title>
           </Head>
           <ConnectedRouter>
-            <ThemeProvider>
+            <ThemeProvider themeCookie={theme}>
               <Component {...pageProps} />
             </ThemeProvider>
           </ConnectedRouter>

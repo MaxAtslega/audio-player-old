@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: auto;
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   position: relative;
   z-index: 1;
   background: var(--background-secondary);

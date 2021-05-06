@@ -9,8 +9,8 @@ import {
   logoutAction,
   REAUTHENTICATE,
   reauthenticateAction,
-} from "../actions/auth.actions";
-import cookie from "js-cookie";
+} from "@actions/auth.actions";
+import * as cookie from "@utils/cookie";
 
 export interface State {
   token: string;
@@ -28,7 +28,7 @@ export default function authReducer(
 ): State {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      cookie.set("token", action.payload);
+      cookie.setCookie("token", action.payload);
       return update(state, {
         token: { $set: action.payload },
         error: { $set: false },
@@ -39,7 +39,7 @@ export default function authReducer(
         error: { $set: true },
       });
     case LOGOUT:
-      cookie.remove("token");
+      cookie.removeCookie("token");
       return update(state, {
         token: { $set: "" },
         error: { $set: false },

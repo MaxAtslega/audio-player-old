@@ -1,37 +1,42 @@
-import React, { Context } from "react";
-import { useSelector } from "react-redux";
-import { isLoggedIn } from "@selectors/login.selectors";
+import React, { Context, useEffect } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { getToken, isAdmin, isLoggedIn } from "@selectors/login.selectors";
 import { useRouter } from "next/router";
 import initialize from "@utils/initialize";
-import List from "@components/List";
 import Main from "@components/Main";
 import Header from "@components/Header";
-import AudioPlayer from "@components/AudioPlayer";
 import { Container } from "@components/Main/Main.styles"
 import Loading from "@components/Loading/Loading";
-import { loadAudiosAction } from "@actions/user.actions";
+import { getAudio, getAudios } from "@selectors/user.selectors";
+import { LOAD_AUDIOS_SUCCESS, loadAudiosAction } from "@actions/user.actions";
+import { UNAUTHORIZED_ERROR } from "@actions/auth.actions";
 import waitForAction from "@utils/waitForAction";
+
 function Index() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const loggedin = useSelector(isLoggedIn);
+  const admin = useSelector(isAdmin);
+  const audio = useSelector(getAudio)(String(router.query.uuid))
 
-  if (loggedin) {
+  if (loggedin && admin && audio.name) {
     return(
-    <Main>
-      <Header/>
-      <Container>
-        <AudioPlayer/>
-        <List/>
-      </Container>
-    </Main>);
+      <Main>
+        <Header/>
+        <Container>
+          {JSON.stringify(audio)}
+        </Container>
+      </Main>);
   } else {
     if (typeof window !== "undefined") {
-      router.push("/login");
+      router.push(!loggedin ? "/login" : "/");
     }
 
     return <Loading/>;
   }
 }
+
+
 
 Index.getInitialProps = async function(ctx: any) {
   await initialize(ctx);

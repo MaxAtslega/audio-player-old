@@ -78,6 +78,10 @@ export const UserIcon = styled(BiUserCircle)`
   @media only screen and (max-width: 730px) {
     display: none;
   }
+
+  path {
+    pointer-events: none;
+  }
 `
 
 export const UserToggleBar = styled.div`
@@ -134,6 +138,10 @@ export const SidebarRightIcon = styled(CgMenuRight)`
   &:hover{
     opacity: 0.7;
   }
+
+  path {
+    pointer-events: none;
+  }
 `
 
 export const SidebarLeftIcon = styled(CgMenuLeft)`
@@ -149,6 +157,10 @@ export const SidebarLeftIcon = styled(CgMenuLeft)`
 
   &:hover{
     opacity: 0.7;
+  }
+
+  path {
+    pointer-events: none;
   }
 `
 
@@ -177,6 +189,9 @@ export const NavItem = styled.li`
   text-align: center;
   cursor: pointer;
 
+  &:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
 `
 
 export const ControlItems = styled.ul`
@@ -202,6 +217,9 @@ export const ControlItem = styled.li`
     background: rgba(0, 0, 0, 0.2);
   }
 
+  svg {
+    pointer-events: none;
+  }
 `
 
 export const SidebarContent = styled.ul`
