@@ -1,0 +1,81 @@
+version: '3.7'
+services:
+  traefik:
+    image: traefik:v2.2
+    container_name: "traefik"
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+    ports:
+      - "85:80"
+      - "8085:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - audio-network
+
+  database:
+    image: postgres:latest
+    container_name: "database"
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DATABSE=db
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_USER=postgres
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    restart: always
+    networks:
+      - audio-network
+    volumes:
+      - pgdata:/var/utils/postgresql/data
+  backend:
+    build: './backend'
+    restart: always
+    container_name: "backend"
+    volumes:
+      - './backend/audios:/backend/audios'
+    expose:
+      - 3005
+    env_file:
+      - backend.env
+    depends_on:
+      - database
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=PathPrefix(`/api`)"
+    networks:
+      - audio-network
+  frontend:
+    build: './frontend'
+    restart: always
+    container_name: "frontend"
+    expose:
+      - 3000
+    env_file:
+      - frontend.env
+    depends_on:
+      - backend
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+    networks:
+      - audio-network
+volumes:
+  pgdata:
+
+networks:
+  audio-network:
+    driver: bridge
+    name: node-lupinemoon-ms-back

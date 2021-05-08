@@ -1,0 +1,12 @@
+{
+    "autoLoadEntities": true,
+    "entities": [
+        "dist/entity/audio.entity.ts"
+    ],
+    "host": "localhost",
+    "password": "mysecretpassword",
+    "port": 5432,
+    "synchronize": true,
+    "type": "postgres",
+    "username": "postgres"
+}
