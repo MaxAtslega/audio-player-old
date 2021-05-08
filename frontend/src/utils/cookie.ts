@@ -17,12 +17,6 @@ export const removeCookie = (key: string) => {
   }
 };
 
-export const getCookie = (key: string, req: NextApiRequest) => {
-  return typeof window === "undefined"
-    ? getCookieFromServer(key, req)
-    : getCookieFromBrowser(key);
-};
-
 const getCookieFromBrowser = (key: string) => {
   return cookie.get(key);
 };
@@ -38,4 +32,10 @@ const getCookieFromServer = (key: string, req: NextApiRequest) => {
     return undefined;
   }
   return rawCookie.split("=")[1];
+};
+
+export const getCookie = (key: string, req: NextApiRequest) => {
+  return typeof window === "undefined"
+    ? getCookieFromServer(key, req)
+    : getCookieFromBrowser(key);
 };

@@ -1,5 +1,3 @@
-import { ActionType } from "typesafe-actions";
-import update from "immutability-helper";
 import {
   LOGIN_ERROR,
   LOGIN_SUCCESS,
@@ -9,8 +7,12 @@ import {
   logoutAction,
   REAUTHENTICATE,
   reauthenticateAction,
+  UNAUTHORIZED_ERROR,
+  unauthorizedErrorAction,
 } from "@actions/auth.actions";
 import * as cookie from "@utils/cookie";
+import update from "immutability-helper";
+import { ActionType } from "typesafe-actions";
 
 export interface State {
   token: string;
@@ -24,6 +26,7 @@ export default function authReducer(
     | typeof loginErrorAction
     | typeof logoutAction
     | typeof reauthenticateAction
+    | typeof unauthorizedErrorAction
   >
 ): State {
   switch (action.type) {
@@ -49,7 +52,12 @@ export default function authReducer(
         token: { $set: action.payload },
         error: { $set: false },
       });
-
+    case UNAUTHORIZED_ERROR:
+      cookie.removeCookie("token");
+      return update(state, {
+        token: { $set: "" },
+        error: { $set: true },
+      });
     default:
       return state;
   }

@@ -1,4 +1,5 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import React from "react";
+import Document, { Head, Html, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 import * as cookie from "@utils/cookie";
 
@@ -6,11 +7,11 @@ interface Props {
   theme: string | undefined;
 }
 
-export default class MyDocument extends Document<Props>{
+export default class MyDocument extends Document<Props> {
   static async getInitialProps(ctx: any) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
-    let theme = cookie.getCookie("theme", ctx.req);
+    const theme = cookie.getCookie("theme", ctx.req);
 
     try {
       ctx.renderPage = () =>
@@ -39,13 +40,17 @@ export default class MyDocument extends Document<Props>{
   setInitialColorMode() {
     const code = `function setTheme(){
       const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-      if (darkThemeMq.matches && !${this.props.theme ? `"${this.props.theme}"` : undefined}) {
+      if (darkThemeMq.matches && !${
+        this.props.theme ? `"${this.props.theme}"` : undefined
+      }) {
         document.documentElement.setAttribute("data-theme", "dark");
       }else{
-        document.documentElement.setAttribute("data-theme", "${this.props.theme ? this.props.theme : "light"}");
+        document.documentElement.setAttribute("data-theme", "${
+          this.props.theme ? this.props.theme : "light"
+        }");
       }
     }`;
-    return "(function(){"+code+"setTheme()})()"
+    return `(function(){${code}setTheme()})()`;
   }
 
   render() {

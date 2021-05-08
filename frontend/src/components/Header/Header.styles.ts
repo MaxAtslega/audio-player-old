@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BiUserCircle } from "react-icons/bi";
-import { CgMenuRight, CgMenuLeft } from "react-icons/cg";
+import { CgMenuLeft, CgMenuRight } from "react-icons/cg";
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -17,7 +17,6 @@ export const HeaderContainer = styled.div`
     position: fixed;
     z-index: 100;
   }
-
 `;
 export const TitleContainer = styled.div`
   display: inline-block;
@@ -44,7 +43,7 @@ export const Title = styled.h1`
   @media only screen and (max-width: 730px) {
     display: none;
   }
-`
+`;
 
 export const TitleShort = styled.h1`
   display: none;
@@ -56,13 +55,13 @@ export const TitleShort = styled.h1`
   @media only screen and (max-width: 730px) {
     display: flex;
   }
-`
+`;
 
 export const Space = styled.div`
   height: 100%;
   display: flex;
   justify-content: left;
-`
+`;
 
 export const UserIcon = styled(BiUserCircle)`
   font-size: 40px;
@@ -71,7 +70,7 @@ export const UserIcon = styled(BiUserCircle)`
   cursor: pointer;
   display: flex;
 
-  &:hover{
+  &:hover {
     opacity: 0.7;
   }
 
@@ -82,7 +81,7 @@ export const UserIcon = styled(BiUserCircle)`
   path {
     pointer-events: none;
   }
-`
+`;
 
 export const UserToggleBar = styled.div`
   position: fixed;
@@ -104,14 +103,13 @@ export const UserToggleBar = styled.div`
     height: 400px;
     top: 10px;
   }
-`
+`;
 
 export const SidebarContainer = styled.div`
   width: 100%;
   height: 100%;
   text-align: right;
   background-color: var(--background-header);
-
 
   @media only screen and (min-width: 730px) {
     text-align: center !important;
@@ -122,7 +120,7 @@ export const SidebarContainer = styled.div`
     height: auto;
     border-radius: 10px;
   }
-`
+`;
 
 export const SidebarRightIcon = styled(CgMenuRight)`
   font-size: 40px;
@@ -135,14 +133,14 @@ export const SidebarRightIcon = styled(CgMenuRight)`
     display: flex;
   }
 
-  &:hover{
+  &:hover {
     opacity: 0.7;
   }
 
   path {
     pointer-events: none;
   }
-`
+`;
 
 export const SidebarLeftIcon = styled(CgMenuLeft)`
   font-size: 40px;
@@ -155,14 +153,14 @@ export const SidebarLeftIcon = styled(CgMenuLeft)`
     display: flex;
   }
 
-  &:hover{
+  &:hover {
     opacity: 0.7;
   }
 
   path {
     pointer-events: none;
   }
-`
+`;
 
 export const Navigation = styled.ul`
   list-style: none;
@@ -177,8 +175,7 @@ export const Navigation = styled.ul`
   @media only screen and (max-width: 730px) {
     display: none;
   }
-
-`
+`;
 export const NavItem = styled.li`
   display: flex;
   align-items: center;
@@ -192,7 +189,7 @@ export const NavItem = styled.li`
   &:hover {
     background: rgba(0, 0, 0, 0.2);
   }
-`
+`;
 
 export const ControlItems = styled.ul`
   list-style: none;
@@ -204,8 +201,7 @@ export const ControlItems = styled.ul`
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 0;
-
-`
+`;
 
 export const ControlItem = styled.li`
   padding: 20px;
@@ -220,7 +216,7 @@ export const ControlItem = styled.li`
   svg {
     pointer-events: none;
   }
-`
+`;
 
 export const SidebarContent = styled.ul`
   list-style: none;
@@ -229,10 +225,13 @@ export const SidebarContent = styled.ul`
 
   margin: 0;
   padding: 0;
-
-`
+`;
 
 export const SidebarItem = styled.li`
+  padding: 15px 20px;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
 
   @media only screen and (min-width: 730px) {
     &.mobile {
@@ -240,13 +239,7 @@ export const SidebarItem = styled.li`
     }
   }
 
-  a {
-    padding: 15px 20px;
-    display: inline-block;
-    width: 100%;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.2);
-    }
+  &:hover {
+    background: rgba(0, 0, 0, 0.2);
   }
-`
+`;

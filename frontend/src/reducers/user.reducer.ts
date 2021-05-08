@@ -3,18 +3,18 @@ import Audio from "@models/Audio";
 import { ActionType } from "typesafe-actions";
 import {
   AUDIO_URL,
-  audioUrlAction,
   CREATE_AUDIO_SUCCESS,
-  createAudioSuccessAction,
   DELETE_AUDIO_SUCCESS,
-  deleteAudioSuccessAction,
   ERROR,
-  errorAction,
   LOAD_AUDIOS_SUCCESS,
-  loadAudiosSuccessAction,
   SELECT_AUDIO,
-  selectAudioAction,
   UPDATE_AUDIO_SUCCESS,
+  audioUrlAction,
+  createAudioSuccessAction,
+  deleteAudioSuccessAction,
+  errorAction,
+  loadAudiosSuccessAction,
+  selectAudioAction,
   updateAudioSuccessAction,
 } from "@actions/user.actions";
 
@@ -26,7 +26,14 @@ export interface State {
 }
 
 export default function userReducer(
-  state: State = { audios: [], error: "", selectedAudio: JSON.parse(JSON.stringify(new Audio("", "", "","", "", ""))), selectedAudioUrl: ""},
+  state: State = {
+    audios: [],
+    error: "",
+    selectedAudio: JSON.parse(
+      JSON.stringify(new Audio("", "", "", "", "", ""))
+    ),
+    selectedAudioUrl: "",
+  },
   action: ActionType<
     | typeof deleteAudioSuccessAction
     | typeof createAudioSuccessAction
@@ -38,39 +45,45 @@ export default function userReducer(
   >
 ): State {
   switch (action.type) {
-    case AUDIO_URL:
+    case AUDIO_URL: {
       return update(state, {
         selectedAudioUrl: { $set: action.payload },
       });
-
-    case DELETE_AUDIO_SUCCESS:
+    }
+    case DELETE_AUDIO_SUCCESS: {
       const filteredAudios = state.audios.filter(
         audio => audio.uuid !== action.payload.toString()
       );
 
       return update(state, { audios: { $set: filteredAudios } });
-    case CREATE_AUDIO_SUCCESS:
+    }
+    case CREATE_AUDIO_SUCCESS: {
       const newAudio = update(action.payload, {
         uuid: { $set: action.payload.uuid },
       });
       return update(state, { audios: { $push: [newAudio] } });
-    case UPDATE_AUDIO_SUCCESS:
+    }
+    case UPDATE_AUDIO_SUCCESS: {
       const AudioIndex = state.audios.findIndex(
         Audio => Audio.uuid === action.payload.uuid
       );
       return update(state, {
         audios: { [AudioIndex]: { $set: action.payload } },
       });
-    case LOAD_AUDIOS_SUCCESS:
+    }
+    case LOAD_AUDIOS_SUCCESS: {
       return update(state, { audios: { $set: action.payload } });
-    case ERROR:
+    }
+    case ERROR: {
       return update(state, {
         error: { $set: action.payload },
       });
-    case SELECT_AUDIO:
+    }
+    case SELECT_AUDIO: {
       return update(state, {
         selectedAudio: { $set: action.payload },
       });
+    }
     default:
       return state;
   }

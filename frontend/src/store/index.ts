@@ -1,24 +1,18 @@
 import thunkMiddleware from "redux-thunk";
-import {
-  createStore,
-  applyMiddleware,
-  Store as ReduxStore,
-  combineReducers,
-} from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
-import rootReducer, { AppState } from "../reducers/rootReducer";
 import { createEpicMiddleware } from "redux-observable";
 import { AllActions } from "@actions/actions";
-import rootEpic from "../epics/rootEpic";
 import {
   createRouterMiddleware,
   initialRouterState,
-  routerReducer,
 } from "connected-next-router";
 import Router from "next/router";
 
 // @ts-ignore
 import { createWrapper } from "next-redux-wrapper";
+import rootEpic from "../epics/rootEpic";
+import rootReducer, { AppState } from "../reducers/rootReducer";
 
 const dev: boolean = process.env.NODE_ENV !== "production";
 
@@ -34,7 +28,8 @@ export const configureStore = (context: any): any => {
   >();
 
   const routerMiddleware = createRouterMiddleware();
-  const { asPath } = context.ctx || Router.router || {};
+  const { asPath } = context.ctx || Router.router || { asPath: null };
+
   let initialState;
   if (asPath) {
     initialState = {

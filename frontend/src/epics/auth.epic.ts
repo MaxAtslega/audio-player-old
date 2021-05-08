@@ -1,20 +1,16 @@
+import getApiUrl from "@utils/getApiUrl";
 import axios from "axios";
-import { combineEpics, ofType, Epic } from "redux-observable";
+import { Epic, combineEpics, ofType } from "redux-observable";
 import {
   LOGIN,
-  loginSuccessAction,
-  loginErrorAction,
-  logoutAction,
   LOGIN_SUCCESS,
-  UNAUTHORIZED_ERROR,
   LOGOUT,
-  REAUTHENTICATE,
-  reauthenticateAction,
+  loginErrorAction,
+  loginSuccessAction,
 } from "@actions/auth.actions";
-import { switchMap, catchError, map, mapTo } from "rxjs/operators";
+import { catchError, map, mapTo, switchMap } from "rxjs/operators";
 import { from, of } from "rxjs";
 import { push } from "connected-next-router";
-import { loadAudiosAction } from "@actions/user.actions";
 
 const login: Epic = action$ =>
   action$.pipe(
@@ -22,13 +18,11 @@ const login: Epic = action$ =>
     switchMap(({ payload }) =>
       from(
         axios.post<{ access_token: string }>(
-          process.env.API_URL + "/auth/login",
+          `${getApiUrl()}/auth/login`,
           payload
         )
       ).pipe(
-        map(({ data: access_token }) =>
-          loginSuccessAction(access_token.access_token)
-        ),
+        map(({ data }) => loginSuccessAction(data.access_token)),
         catchError(() => of(loginErrorAction()))
       )
     )
@@ -39,10 +33,7 @@ const redirectToStart: Epic = action$ => {
 };
 
 const redirectToLogin: Epic = action$ => {
-  return action$.pipe(
-    ofType(LOGOUT),
-    mapTo(push("/login"))
-  );
+  return action$.pipe(ofType(LOGOUT), mapTo(push("/login")));
 };
 
 export default combineEpics(login, redirectToStart, redirectToLogin);

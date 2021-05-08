@@ -16,14 +16,12 @@ export const MainContainer = styled.div`
   @media only screen and (max-width: 730px) {
     padding: 0;
   }
-`
+`;
 
 export const Container = styled.div`
-
   @media only screen and (max-width: 730px) {
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 80px;
   }
-`
-
+`;

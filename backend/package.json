@@ -1,9 +1,8 @@
 {
   "name": "backend",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
   "author": "Max Atslega <contact@atslega.network>",
-  "private": true,
   "license": "GNU General Public License v3.0",
   "scripts": {
     "prebuild": "rimraf dist",

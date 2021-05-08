@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "@components/LoginForm/LoginForm";
+import LoginForm from "@components/LoginForm";
 import initialize from "../src/utils/initialize";
 
 class Login extends React.Component {

@@ -7,11 +7,29 @@
   ],
   "rules": {
     "react/prop-types": "off",
-    "react/jsx-indent": [2, 4, { "checkAttributes": false }],
-    "react/jsx-indent-props": [2, 4],
+    "react/destructuring-assignment": "off",
+    "react/no-unused-state": "off",
+    "react/prefer-stateless-function": "off",
+    "react/no-array-index-key": "warn",
+    "react/no-danger": "off",
     "import/prefer-default-export": "off",
     "import/no-cycle": "off",
-    "no-multi-assign": "off"
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "import/no-named-as-default": 0,
+    "class-methods-use-this": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-multi-assign": "off",
+
+    "no-var-keyword": 0,
+    "no-duplicate-variable": 0,
+    "no-trailing-whitespace": 0,
+    "no-console": "error",
+    "no-multi-spaces": "error",
+    "no-script-url": "error",
+    "no-shadow": "off",
+    "camelcase": "off",
+    "semi": ["error", "always"]
   },
   "settings": {
     "import/parsers": {
@@ -21,5 +39,5 @@
       "typescript": {}
     }
   },
-  "plugins": ["import", "jest-dom"]
+  "plugins": ["import", "jest-dom","@typescript-eslint"]
 }

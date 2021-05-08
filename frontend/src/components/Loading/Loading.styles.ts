@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
 export const Container = styled.div`
-
   padding-top: 40vh;
   display: flex;
   justify-content: center;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import AudioPlayer from "react-h5-audio-player"
+import AudioPlayer from "react-h5-audio-player";
 
 export const AudioPlayerStyle = styled(AudioPlayer)`
   & {
@@ -16,10 +16,9 @@ export const AudioPlayerStyle = styled(AudioPlayer)`
     margin-bottom: 40px;
   }
 
-  & *{
+  & * {
     outline: 0;
   }
-
 
   & svg {
     vertical-align: initial;
@@ -82,7 +81,6 @@ export const AudioPlayerStyle = styled(AudioPlayer)`
     -webkit-user-select: none;
   }
 
-
   & .rhap_time {
     font-size: 16px;
     user-select: none;
@@ -105,8 +103,6 @@ export const AudioPlayerStyle = styled(AudioPlayer)`
     border-radius: 2px;
     background-color: #868686;
   }
-
-
 
   & .rhap_download-progress {
     height: 100%;

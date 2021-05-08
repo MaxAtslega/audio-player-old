@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Form, Title, Button } from "./LoginForm.styles";
-import { hasLoginError } from "../../selectors/login.selectors";
-import { loginAction } from "../../actions/auth.actions";
+import { hasLoginError } from "@selectors/login.selectors";
+import { loginAction } from "@actions/auth.actions";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Button, Container, Form, Title } from "./LoginForm.styles";
 import { Input as InputStyle } from "../Input/Input.styles";
 
 export default function LoginForm() {

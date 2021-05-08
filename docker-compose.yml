@@ -21,6 +21,7 @@ services:
     container_name: "database"
     environment:
       - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DATABSE=db
       - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_USER=postgres
     expose:
@@ -33,6 +34,8 @@ services:
       interval: 10s
       retries: 10
     restart: always
+    networks:
+      - audio-network
     volumes:
       - pgdata:/var/utils/postgresql/data
   backend:
@@ -53,7 +56,22 @@ services:
       - "traefik.http.routers.backend.rule=PathPrefix(`/api`)"
     networks:
       - audio-network
-
+  frontend:
+    build: './frontend'
+    restart: always
+    container_name: "frontend"
+    expose:
+      - 3000
+    env_file:
+      - frontend.env
+    depends_on:
+      - backend
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+    networks:
+      - audio-network
 volumes:
   pgdata:
 

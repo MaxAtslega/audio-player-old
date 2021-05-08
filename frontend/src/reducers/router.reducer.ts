@@ -1,6 +1,5 @@
 import { RouterState } from "connected-next-router/types";
-import { AnyAction, combineReducers, Reducer } from "redux";
-// @ts-ignore
+import { AnyAction, Reducer, combineReducers } from "redux";
 import { HYDRATE } from "next-redux-wrapper";
 import { routerReducer } from "connected-next-router";
 
@@ -23,9 +22,8 @@ const reducer: Reducer<State, AnyAction> = (state: any, action: any) => {
       nextState.router = state.router;
     }
     return nextState;
-  } else {
-    return combinedReducer(state, action);
   }
+  return combinedReducer(state, action);
 };
 
 export default reducer;

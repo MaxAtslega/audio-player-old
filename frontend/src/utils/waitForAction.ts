@@ -1,5 +1,5 @@
 export default function waitForAction(store: any) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     store.subscribe(() => {
       resolve(store.getState());
     });

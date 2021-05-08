@@ -1,9 +1,8 @@
-import { AnyAction, combineReducers, Reducer } from "redux";
+import { AnyAction, Reducer, combineReducers } from "redux";
+import { routerReducer } from "connected-next-router";
+import { HYDRATE } from "next-redux-wrapper";
 import authReducer from "./auth.reducer";
 import userReducer from "./user.reducer";
-import { routerReducer } from "connected-next-router";
-// @ts-ignore
-import { HYDRATE } from "next-redux-wrapper";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -21,9 +20,8 @@ const reducer: Reducer<AppState, AnyAction> = (state: any, action) => {
       nextState.router = state.router;
     }
     return nextState;
-  } else {
-    return rootReducer(state, action);
   }
+  return rootReducer(state, action);
 };
 
 export default reducer;

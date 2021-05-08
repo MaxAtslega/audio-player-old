@@ -1,19 +1,17 @@
 import { AppState } from "@reducers/rootReducer";
-import decode from 'jwt-decode'
+import decode from "jwt-decode";
 
 export function getToken(state: AppState) {
   return state.auth.token;
 }
 
 export function isAdmin(state: AppState) {
-  const token = state.auth.token;
-  if(token){
+  const { token } = state.auth;
+  if (token) {
     const data: any = decode(token);
-    return data?.role === "Admin";
-  }else{
-    return false;
+    return data.role === "Admin";
   }
-
+  return false;
 }
 
 export function hasLoginError(state: AppState) {

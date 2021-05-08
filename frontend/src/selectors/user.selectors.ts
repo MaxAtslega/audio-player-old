@@ -1,4 +1,4 @@
-import { AppState } from "../reducers/rootReducer";
+import { AppState } from "@reducers/rootReducer";
 import Audio from "@models/Audio";
 
 export function getAudios(state: AppState): Audio[] {
@@ -21,7 +21,7 @@ export function getAudio(state: AppState): (uuid?: string) => Audio {
   return (uuid?: string): Audio => {
     const audio = getAudios(state).find(audio => audio.uuid === uuid);
     if (!audio) {
-      return new Audio("", "","","","", "");
+      return new Audio("", "", "", "", "", "");
     }
     return audio;
   };
