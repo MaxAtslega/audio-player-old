@@ -3,7 +3,7 @@ stages:
   steps:
   - publishImageConfig:
       dockerfilePath: ./frontend/Dockerfile
-      buildContext: .
+      buildContext: ./frontend/
       tag: audio-player/frontend
       pushRemote: true
       registry: pcr.atslega.network
@@ -11,7 +11,7 @@ stages:
   steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
-      buildContext: .
+      buildContext: ./backend/
       tag: audio-player/backend
       pushRemote: true
       registry: pcr.atslega.network
