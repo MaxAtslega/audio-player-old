@@ -10,7 +10,7 @@ stages:
 - name: Build and Publish Backend
   steps:
   - publishImageConfig:
-      dockerfilePath: ./Dockerfile
+      dockerfilePath: ./backend/Dockerfile
       buildContext: ./backend/
       tag: audio-player/backend
       pushRemote: true
