@@ -1,0 +1,19 @@
+stages:
+- name: Build and Publish Frontend
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./frontend/Dockerfile
+      buildContext: .
+      tag: audio-player/frontend
+      pushRemote: true
+      registry: pcr.atslega.network
+- name: Build and Publish Backend
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: audio-player/backend
+      pushRemote: true
+      registry: pcr.atslega.network
+timeout: 60
+notification: {}
