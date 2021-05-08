@@ -2,7 +2,7 @@ FROM node:14
 
 RUN mkdir /frontend
 WORKDIR /frontend
-COPY frontend/package.json .
+COPY package.json .
 RUN npm install
 COPY . .
 
