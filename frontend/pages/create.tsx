@@ -16,7 +16,6 @@ import Main from "@components/Main";
 import Header from "@components/Header";
 import { Container } from "@components/Main/Main.styles";
 import Loading from "@components/Loading";
-import Index from "./index";
 
 function Create() {
   const dispatch = useDispatch();
@@ -115,7 +114,7 @@ function Create() {
   return <Loading />;
 }
 
-Index.getInitialProps = async function getInitialProps(ctx: any) {
+Create.getInitialProps = async function getInitialProps(ctx: any) {
   await initialize(ctx);
   if (ctx.store.getState().user.audios.length === 0) {
     await ctx.store.dispatch(loadAudiosAction());
